@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Employee Registration</title>
+  </head>
+  <style>
+    body {
+      font-family: "Arial", sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    form {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      width: 350px;
+      text-align: left;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+      font-size: 1.2em;
+      color: blue;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 3px;
+      color: #333;
+      font-size: 0.9em;
+    }
+
+    input,
+    select {
+      width: calc(100% - 6px);
+      padding: 8px;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      background-color: #4caf50;
+      color: #fff;
+      padding: 8px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 28%;
+      display: inline-block;
+      margin-right: 4px;
+    }
+
+    button[type="reset"] {
+      background-color: #f44336;
+    }
+
+    button:hover {
+      background-color: blue;
+    }
+
+    .error {
+      color: red;
+      font-size: 0.8em;
+      margin-top: -8px;
+      margin-bottom: 8px;
+    }
+  </style>
+  <body>
+    <form id="registrationForm" onsubmit="return validateForm()">
+      <h1>Employee Registration</h1>
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" pattern="[A-Za-z ]+" required />
+      <div class="error" id="nameError"></div>
+
+      <label for="gender">Gender:</label>
+      <select id="gender" name="gender" required>
+        <option value="Select option">Select option</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="Transgender">Transgender</option>
+      </select>
+      <div class="error" id="genderError"></div>
+
+      <label for="dob">DOB:</label>
+      <input type="date" id="dob" name="dob" required />
+      <div class="error" id="dobError"></div>
+
+      <label for="branch">Branch:</label>
+      <input
+        type="text"
+        id="branch"
+        name="branch"
+        pattern="[A-Za-z ]+"
+        required
+      />
+      <div class="error" id="branchError"></div>
+
+      <label for="mail">Mail:</label>
+      <input type="email" id="mail" name="mail" required />
+      <div class="error" id="mailError"></div>
+
+      <label for="phone">Phone:</label>
+      <input type="tel" id="phone" name="phone" pattern="[0-9]+" required />
+      <div class="error" id="phoneError"></div>
+
+      <label for="password">Password:</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"
+        required
+      />
+      <div class="error" id="passwordError"></div>
+
+      <label for="role">Role:</label>
+      <input type="text" id="role" name="role" required />
+      <div class="error" id="roleError"></div>
+
+      <button type="button" onclick="register()">Register</button>
+      <button type="reset">Reset</button>
+    </form>
+
+    <script>
+      function validateForm() {
+        var name = document.getElementById("name").value;
+        var gender = document.getElementById("gender").value;
+        var dob = document.getElementById("dob").value;
+        var branch = document.getElementById("branch").value;
+        var mail = document.getElementById("mail").value;
+        var phone = document.getElementById("phone").value;
+        var password = document.getElementById("password").value;
+        var role = document.getElementById("role").value;
+
+        // Name validation
+        var namePattern = /^[A-Za-z ]+$/;
+        if (!namePattern.test(name)) {
+          document.getElementById("nameError").innerHTML =
+            "Give valid username";
+          return false;
+        } else {
+          document.getElementById("nameError").innerHTML = "";
+        }
+        // Gender validation
+        if (gender === "Select option") {
+          document.getElementById("genderError").innerHTML =
+            "Select a valid gender";
+          return false;
+        } else {
+          document.getElementById("genderError").innerHTML = "";
+        }
+        //DOB validation
+        if (!dob) {
+          document.getElementById("dobError").innerHTML =
+            "Enter valid date of birth";
+          return false;
+        } else {
+          document.getElementById("dobError").innerHTML = "";
+        }
+        // Branch validation
+        var branchPattern = /^[A-Za-z ]+$/;
+        if (!branchPattern.test(branch)) {
+          document.getElementById("branchError").innerHTML =
+            "Enter valid branch";
+          return false;
+        } else {
+          document.getElementById("branchError").innerHTML = "";
+        }
+        // Mail validation
+        var mailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!mailPattern.test(mail)) {
+          document.getElementById("mailError").innerHTML = "Enter valid mail";
+          return false;
+        } else {
+          document.getElementById("mailError").innerHTML = "";
+        }
+        // Phone validation
+        var phonePattern = /^[0-9]+$/;
+        if (!phonePattern.test(phone)) {
+          document.getElementById("phoneError").innerHTML =
+            "Enter valid number";
+          return false;
+        } else {
+          document.getElementById("phoneError").innerHTML = "";
+        }
+        // Password validation
+        var passwordPattern =
+          /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+        if (!passwordPattern.test(password)) {
+          document.getElementById("passwordError").innerHTML =
+            "Enter valid password";
+          return false;
+        } else {
+          document.getElementById("passwordError").innerHTML = "";
+        }
+        // Role validation
+        var rolePattern = /^[A-Za-z ]+$/;
+        if (!rolePattern.test(role)) {
+          document.getElementById("roleError").innerHTML = "Enter valid role";
+          return false;
+        } else {
+          document.getElementById("roleError").innerHTML = "";
+        }
+        // Assuming all validations pass, you can submit the form or perform other actions
+        return true;
+      }
+
+      function register() {
+        // Assuming the form is valid, redirect to RegSuc.html
+        if (validateForm()) {
+          // Collect the form data
+          const formData = {
+            name: document.getElementById("name").value,
+            gender: document.getElementById("gender").value,
+            dob: document.getElementById("dob").value,
+            branch: document.getElementById("branch").value,
+            mail: document.getElementById("mail").value,
+            phone: document.getElementById("phone").value,
+            password: document.getElementById("password").value,
+            role: document.getElementById("role").value,
+          };
+
+          // Send a POST request to the server with the form data
+          fetch("/register", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+          })
+            .then((response) => response.text())
+            .then((data) => {
+              // Redirect or display a success message as needed
+              window.location.href = "RegSuc.html";
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+            });
+        }
+      }
+    </script>
+  </body>
+</html>

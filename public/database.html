@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Database</title>
+    <!-- Add your styling here -->
+</head>
+<body>
+    <h1>Registered Users</h1>
+    <table id="usersTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Gender</th>
+                <th>DOB</th>
+                <th>Branch</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Role</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- User data will go here -->
+        </tbody>
+    </table>
+
+    <script>
+        // Fetch the registration details when the page loads
+        window.onload = function() {
+            fetch('/users', { method: 'GET' })
+                .then(response => response.json())
+                .then(data => {
+                    const tableBody = document.getElementById('usersTable').getElementsByTagName('tbody')[0];
+                    data.forEach(user => {
+                        let row = tableBody.insertRow();
+                        row.innerHTML = `<td>${user.name}</td>
+                                         <td>${user.gender}</td>
+                                         <td>${user.dob}</td>
+                                         <td>${user.branch}</td>
+                                         <td>${user.mail}</td>
+                                         <td>${user.phone}</td>
+                                         <td>${user.role}</td>`;
+                    });
+                })
+                .catch(error => console.error('Error:', error));
+        };
+    </script>
+</body>
+</html>
